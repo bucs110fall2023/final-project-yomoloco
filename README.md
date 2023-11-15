@@ -8,15 +8,17 @@
 
 << List team member names >>
 
-***
+Salman Naveed
+Neil Abhichandani
 
 ## Project Description
 
 << Give an overview of your project >>
 
-***    
+Cricket Game 
 
 ## GUI Design
+
 
 ### Initial Design
 
