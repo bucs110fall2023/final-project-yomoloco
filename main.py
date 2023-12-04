@@ -37,7 +37,7 @@ potted_balls = []
 
 #colours
 BG = (50, 50, 50)
-RED = (255, 0, 0)
+GREEN = (0,255,0)
 WHITE = (255, 255, 255)
 
 #fonts
@@ -142,7 +142,7 @@ cue = Cue(balls[-1].body.position)
 
 #create power bars to show how hard the cue ball will be hit
 power_bar = pygame.Surface((10, 20))
-power_bar.fill(RED)
+power_bar.fill(GREEN)
 
 #game loop
 run = True
