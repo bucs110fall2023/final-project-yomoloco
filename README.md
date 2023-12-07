@@ -5,20 +5,15 @@
 ## CS110 Final Project  << Fall, 2023 >>
 
 ## Team Members
-
-<< List team member names >>
-
 Salman Naveed
 Neil Abhichandani
 
 ## Project Description
 
-<< Pool Gmae where a player is playing by himself and has to get all the balls in>>
+<< Pool Game where a player is playing by himself and has to get all the balls in>>
 
 
 ## GUI Design
-
-
 ### Initial Design
 
 ![initial gui](assets/gui.jpg)
@@ -27,6 +22,7 @@ Neil Abhichandani
 
 ![final gui](assets/finalgui.jpg)
 
+In assets folder
 ## Program Design
 
 ### Features
@@ -39,7 +35,48 @@ Neil Abhichandani
 
 ### Classes
 
-- << You should have a list of each of your classes with a description >>
+class Ball:
+    def __init__(self, radius, pos):
+        body = pymunk.Body()
+        body.position = pos
+        self.shape = pymunk.Circle(body, radius)
+        self.shape.mass = 5
+        self.shape.elasticity = 0.8
+
+        pivot = pymunk.PivotJoint(space.static_body, body, (0, 0), (0, 0))
+        pivot.max_bias = 0
+        pivot.max_force = 1000
+
+        space.add(body, self.shape, pivot)
+
+    def draw(self, screen):
+        pygame.draw.circle(screen, (255, 255, 255), (int(self.shape.body.position.x), int(self.shape.body.position.y)),
+                           int(self.shape.radius), 0)
+
+class Cue:
+    def __init__(self, pos):
+        self.original_image = pygame.Surface((20, 100))
+        self.original_image.fill((255, 255, 255))
+        self.angle = 0
+        self.image = pygame.transform.rotate(self.original_image, self.angle)
+        self.rect = self.image.get_rect()
+        self.rect.center = pos
+
+    def update(self, angle):
+        self.angle = angle
+
+    def draw(self, screen):
+        self.image = pygame.transform.rotate(self.original_image, self.angle)
+        screen.blit(self.image,
+                     (self.rect.centerx - self.image.get_width() / 2,
+                      self.rect.centery - self.image.get_height() / 2))
+
+class Table:
+    def __init__(self):
+        self.image = pygame.image.load("Table Image").convert_alpha()
+
+    def draw(self, screen):
+        screen.blit(self.image, (0, 0))
 
 ## ATP
 Test Case 1: Cue movement
