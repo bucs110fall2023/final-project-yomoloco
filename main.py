@@ -1,7 +1,8 @@
 import pygame
 import pymunk
-import pymunk.pygame_util
 import math
+import pymunk.pygame_util
+
 
 pygame.init()
 
