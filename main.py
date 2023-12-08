@@ -146,7 +146,7 @@ cuestick = Cue(balls[-1].body.position)
 power_bar = pygame.Surface((10, 20))
 power_bar.fill(GREEN)
 
-class Ball():
+class ball():
     def __init__(self, radius, mass, elasticity, position):
         self.body = pymunk.Body()
         self.body.position = position
@@ -177,6 +177,31 @@ class table():
 
     def draw(self, screen):
         screen.blit(self.image, (0, 0))
+        
+class Controller:
+    def __init__(self, cue, cueball, max_force):
+        self.cue = cue
+        self.cueball = cueball
+        self.max_force = max_force
+        self.force = 0
+        self.force_direction = 1
+        self.powering_up = False
+        self.taking_shot = True
+
+    def update_cue_angle(self, mouse_pos):
+        x_dist = self.cueball.body.position[0] - mouse_pos[0]
+        y_dist = -(self.cueball.body.position[1] - mouse_pos[1])
+        cue_angle = math.degrees(math.atan2(y_dist, x_dist))
+        self.cue.update(cue_angle)
+
+    def shoot_cue_ball(self):
+        x_impulse = math.cos(math.radians(self.cue.angle))
+        y_impulse = math.sin(math.radians(self.cue.angle))
+        self.cueball.body.apply_impulse_at_local_point(
+            (self.force * -x_impulse, self.force * y_impulse), (0, 0)
+        )
+        self.force = 0
+        self.force_direction = 1
 
 run = True
 while run:
