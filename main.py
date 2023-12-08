@@ -54,7 +54,7 @@ for i in range(1, 17):
   ball_image = pygame.image.load(f"assets/images/ball_{i}.png").convert_alpha()
   ball_images.append(ball_image)
 
-
+#ball class
 def draw_text(text, font, text_col, x, y):
   img = font.render(text, True, text_col)
   screen.blit(img, (x, y))
@@ -121,7 +121,7 @@ def create_cushion(poly_dims):
 for c in cushions:
   create_cushion(c)
 
-
+#Classes
 class Cue():
   def __init__(self, pos):
     self.original_image = cue_image
@@ -146,6 +146,37 @@ cuestick = Cue(balls[-1].body.position)
 power_bar = pygame.Surface((10, 20))
 power_bar.fill(GREEN)
 
+class Ball():
+    def __init__(self, radius, mass, elasticity, position):
+        self.body = pymunk.Body()
+        self.body.position = position
+        self.shape = pymunk.Circle(self.body, radius)
+        self.shape.mass = mass
+        self.shape.elasticity = elasticity
+
+    def draw(self, screen):
+        screen.blit(ball_images[i], (self.body.position[0] - self.shape.radius, self.body.position[1] - self.shape.radius))
+
+
+class table():
+    def __init__(self, image_path, cushion_data, pocket_data):
+        self.image = pygame.image.load(image_path).convert_alpha()
+        self.cushions = []
+        self.pockets = pocket_data
+
+        for c in cushion_data:
+            self.create_cushion(c)
+
+    def create_cushion(self, poly_dims):
+        body = pymunk.Body(body_type=pymunk.Body.STATIC)
+        body.position = (0, 0)
+        shape = pymunk.Poly(body, poly_dims)
+        shape.elasticity = 0.8
+        space.add(body, shape)
+        self.cushions.append(shape)
+
+    def draw(self, screen):
+        screen.blit(self.image, (0, 0))
 
 run = True
 while run:
