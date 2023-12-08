@@ -178,7 +178,7 @@ class table():
     def draw(self, screen):
         screen.blit(self.image, (0, 0))
         
-class Controller:
+class controller():
     def __init__(self, cue, cueball, max_force):
         self.cue = cue
         self.cueball = cueball

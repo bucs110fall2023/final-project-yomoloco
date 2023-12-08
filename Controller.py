@@ -1,4 +1,4 @@
-class Controller:
+class controller():
     def __init__(self, cue, cueball, max_force):
         # Initialize game controller attributes
 
